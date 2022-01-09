@@ -1,19 +1,18 @@
 import express from "express";
 import cors from "cors";
-import handler from "./handler.js";
+import routes from "./routes.js";
 
 let app = express();
+
 app.use(cors());
 app.use(express.json());
+
 const port = 8080;
 
-app.get("/", cors(), (req, res) => {
-  handler
-    .getData()
-    .then((data) => {
-      res.json({ message: "Request received!", data });
-    })
-    .catch((err) => console.log(err));
+app.use(routes);
+
+app.get("/", (req, res) => {
+  res.send("Hello");
 });
 
 app.listen(port, () => {
